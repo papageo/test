@@ -1,0 +1,31 @@
+name: test
+
+# ----------------------------------------------------------------- #
+# - release_backend tag pushed  --> backend image pushed to azure   #
+# - release_frontend tag pushed --> frontend image pushed to azure  #
+# - release tag pushed          --> both images pushed to azure     #
+# ----------------------------------------------------------------- #
+
+on:
+  push:
+    tags:
+      - 'release_backend'
+      - 'release_frontend'
+
+env:
+  RELEASE_FRONTEND: ${{ (github.ref == 'refs/tags/release') || (github.ref == 'refs/tags/release_frontend')}}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test1
+        run: echo "$RELEASE_FRONTEND"
+
+      - name: test2
+        run: echo "$env.RELEASE_FRONTEND"
+
+      - name: test3
+        run: echo "hello"        
+        if: ${{ env.RELEASE_FRONTEND }}
+
