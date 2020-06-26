@@ -11,6 +11,7 @@ on:
     tags:
       - 'release_backend'
       - 'release_frontend'
+      - 'release'
 
 env:
   RELEASE_FRONTEND: ${{ (github.ref == 'refs/tags/release') || (github.ref == 'refs/tags/release_frontend')}}
@@ -28,4 +29,8 @@ jobs:
       - name: test3
         run: echo "hello"        
         if: ${{ env.RELEASE_FRONTEND }}
+
+      - name: test4
+        run: echo "hello"        
+        if: ${{ RELEASE_FRONTEND }}
 
