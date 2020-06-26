@@ -28,3 +28,7 @@ jobs:
       - name: Build frontend project, create push backend docker image to Azure registry
         run: echo "hi"
         if: ${{ env.RELEASE_FRONTEND }}
+
+      - name: Build backend project, creat and push backend docker image to Azure registry
+        run: echo "ho"
+        if: ${{ env.RELEASE_BACKEND }}
