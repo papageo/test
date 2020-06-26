@@ -1,4 +1,4 @@
-name: test
+name: Release
 
 # ----------------------------------------------------------------- #
 # - release_backend tag pushed  --> backend image pushed to azure   #
@@ -14,23 +14,17 @@ on:
       - 'release'
 
 env:
-  RELEASE_FRONTEND: ${{ (github.ref == 'refs/tags/release') || (github.ref == 'refs/tags/release_frontend')}}
+  AZURE_CONTAINER_REGISTRY: dbsdockerregistry.azurecr.io
+  RELEASE_FRONTEND: ${{ (github.ref == 'refs/tags/release') || (github.ref == 'refs/tags/release_frontend') }}
+  RELEASE_BACKEND: ${{ (github.ref == 'refs/tags/release') || (github.ref == 'refs/tags/release_backend') }}
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
+
     steps:
-      - name: test1
-        run: echo "$RELEASE_FRONTEND"
-
-      - name: test2
-        run: echo "$env.RELEASE_FRONTEND"
-
-      - name: test3
-        run: echo "hello"        
+      - name: Build frontend project, create push backend docker image to Azure registry
+        run: echo "hi"
         if: ${{ env.RELEASE_FRONTEND }}
-
-      - name: test4
-        run: echo "hello"        
-        if: ${{ RELEASE_FRONTEND }}
-
